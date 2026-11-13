@@ -118,9 +118,7 @@
         except KeyError:
             username, password = None, None
 
-        # urllib3 handles proxy authorization for us in the standard adapter.
-        # Avoid appending this to TLS tunneled requests where it may be leaked.
-        if not scheme.startswith('https') and username and password:
+        if username and password:
             headers["Proxy-Authorization"] = _basic_auth_str(username, password)
 
         return new_proxies
