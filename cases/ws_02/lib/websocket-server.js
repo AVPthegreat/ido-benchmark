@@ -118,13 +118,11 @@
   handleUpgrade (req, socket, head, cb) {
     socket.on('error', socketOnError);
 
-    const upgrade = req.headers.upgrade;
     const version = +req.headers['sec-websocket-version'];
     const extensions = {};
 
     if (
-      req.method !== 'GET' || upgrade === undefined ||
-      upgrade.toLowerCase() !== 'websocket' ||
+      req.method !== 'GET' || req.headers.upgrade.toLowerCase() !== 'websocket' ||
       !req.headers['sec-websocket-key'] || (version !== 8 && version !== 13) ||
       !this.shouldHandle(req)
     ) {
