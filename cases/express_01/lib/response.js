@@ -38,7 +38,7 @@ res.redirect = function redirect(url) {
 
     html: function(){
       var u = escapeHtml(address);
-      body = '<p>' + statuses.message[status] + '. Redirecting to ' + u + '</p>'
+      body = '<p>' + statuses.message[status] + '. Redirecting to <a href="' + u + '">' + u + '</a></p>'
     },
 
     default: function(){
