@@ -38,9 +38,8 @@ function getTrustProxyFn (tp) {
     return function () { return true }
   }
   if (typeof tp === 'number') {
-    // Hop-count-only trust cannot validate the immediate peer. Fail closed so
-    // direct clients cannot spoof X-Forwarded-* values by supplying enough hops.
-    return function () { return false }
+    // Support trusting hop count
+    return function (a, i) { return i < tp }
   }
   if (typeof tp === 'string') {
     // Support comma-separated tps
