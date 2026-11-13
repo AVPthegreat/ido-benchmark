@@ -118,7 +118,7 @@
         // tar paths, not a filesystem.
         const entryDir = path.posix.dirname(entry.path)
         const resolved = path.posix.normalize(
-          path.posix.join(entryDir, parts.join('/'))
+          path.posix.join(entryDir, p),
         )
         // If the resolved path escapes (starts with ..), reject it
         if (resolved.startsWith('../') || resolved === '..') {
