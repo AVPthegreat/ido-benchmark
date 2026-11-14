@@ -118,11 +118,7 @@
         text = lastFrame.innerText !== undefined ? lastFrame.innerText : text;
       }
 
-      if ((tag === 'script') || (tag === 'style')) {
-        // htmlparser2 gives us these as-is. Escaping them ruins the content. Allowing
-        // script tags is, by definition, game over for XSS protection, so if that's
-        // your concern, don't allow them. The same is essentially true for style tags
-        // which have their own collection of XSS vectors.
+      if (nonTextTagsArray.indexOf(tag) !== -1) {
         result += text;
       } else {
         var escaped = escapeHtml(text);
