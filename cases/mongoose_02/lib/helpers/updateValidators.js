@@ -59,7 +59,7 @@ module.exports = async function updateValidators(query, schema, castedDoc, optio
   const validatorsToExecute = [];
   const validationErrors = [];
 
-  const alreadyValidated = new Set();
+  let alreadyValidated = null;
 
   const context = query;
   for (let i = 0; i < numUpdates; ++i) {
@@ -87,11 +87,12 @@ module.exports = async function updateValidators(query, schema, castedDoc, optio
         continue;
       }
 
-      if (hasValidatedAncestor(alreadyValidated, updates[i])) {
+      if (alreadyValidated != null && hasValidatedAncestor(alreadyValidated, updates[i])) {
         continue;
       }
 
       if (schemaPath.$isMongooseDocumentArrayElement && v?.$__ != null) {
+        alreadyValidated ??= new Set();
         alreadyValidated.add(updates[i]);
         validatorsToExecute.push(
           schemaPath.doValidate(v, context, { updateValidator: true }).catch(err => {
@@ -109,6 +110,7 @@ module.exports = async function updateValidators(query, schema, castedDoc, optio
         );
       } else {
         if (schemaPath.$isSingleNested) {
+          alreadyValidated ??= new Set();
           alreadyValidated.add(updates[i]);
         }
         validatorsToExecute.push(
