@@ -14,8 +14,6 @@ export type ServeStaticOptions<E extends Env = Env> = {
   root?: string
   path?: string
   precompressed?: boolean
-  /** Allow percent signs in the routed request path. Defaults to false. */
-  allowPercentInPath?: boolean
   mimes?: Record<string, string>
   rewriteRequestPath?: (path: string) => string
   onFound?: (path: string, c: Context<E>) => void | Promise<void>
@@ -65,9 +63,6 @@ export const serveStatic = <E extends Env = Env>(
       filename = options.path
     } else {
       try {
-        if (!options.allowPercentInPath && c.req.path.includes('%')) {
-          throw new Error()
-        }
         filename = tryDecodeURI(c.req.path)
         if (/(?:^|[\/\\])\.{1,2}(?:$|[\/\\])|[\/\\]{2,}|\\/.test(filename)) {
           throw new Error()
