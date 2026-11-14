@@ -38,7 +38,7 @@ var parseObject = function parseObjectRecursive(chain, val, options) {
         ) {
             obj = [];
             obj[index] = parseObject(chain, val, options);
-        } else if (cleanRoot !== '__proto__') {
+        } else {
             obj[cleanRoot] = parseObject(chain, val, options);
         }
     }
