@@ -118,8 +118,7 @@
             path[path.length - 1] = $tmp[0];
           }
 
-          var pathKey = self.escape('{' + path.join(', ') + '}');
-          $baseKey = self.quoteIdentifier(key)+'#>>'+pathKey;
+          $baseKey = self.quoteIdentifier(key)+'#>>\'{'+path.join(', ')+'}\'';
 
           if (options.prefix) {
             if (options.prefix instanceof Utils.literal) {
