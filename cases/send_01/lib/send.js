@@ -38,7 +38,7 @@ SendStream.prototype.pipe = function(res){
   if (root !== null) {
     // join / normalize from optional root dir
     path = normalize(join(root, path))
-    root = normalize(root + sep)
+    root = normalize(root)
 
     // malicious path
     if (path.substr(0, root.length) !== root) {
@@ -47,7 +47,7 @@ SendStream.prototype.pipe = function(res){
     }
 
     // explode path parts
-    parts = path.substr(root.length).split(sep)
+    parts = path.substr(root.length + 1).split(sep)
   } else {
     // ".." is malicious without "root"
     if (upPathRegexp.test(path)) {
