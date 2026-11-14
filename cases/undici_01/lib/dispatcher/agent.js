@@ -22,7 +22,7 @@ function defaultFactory (origin, opts) {
 }
 
 class Agent extends DispatcherBase {
-  constructor ({ factory = defaultFactory, maxOrigins = Infinity, connect, tls, ...options } = {}) {
+  constructor ({ factory = defaultFactory, maxOrigins = Infinity, connect, ...options } = {}) {
     if (typeof factory !== 'function') {
       throw new InvalidArgumentError('factory must be a function.')
     }
@@ -41,11 +41,7 @@ class Agent extends DispatcherBase {
       connect = { ...connect }
     }
 
-    if (tls && typeof tls !== 'function') {
-      tls = { ...tls }
-    }
-
-    this[kOptions] = { ...util.deepClone(options), maxOrigins, connect, tls }
+    this[kOptions] = { ...util.deepClone(options), maxOrigins, connect }
     this[kFactory] = factory
     this[kClients] = new Map()
     this[kOrigins] = new Set()
