@@ -118,7 +118,7 @@
                 yield OrderBy(expr, descending=descending), False
                 continue
 
-            if "." in field and field in self.query.extra_order_by:
+            if "." in field:
                 # This came in through an extra(order_by=...) addition. Pass it
                 # on verbatim.
                 table, col = col.split(".", 1)
