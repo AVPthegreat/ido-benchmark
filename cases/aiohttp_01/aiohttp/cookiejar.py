@@ -118,9 +118,6 @@
         # Send shared cookie
         key = ("", "")
         for c in self._cookies[key].values():
-            if is_not_secure and c["secure"]:
-                continue
-
             # Check cache first
             if c.key in self._morsel_cache[key]:
                 filtered[c.key] = self._morsel_cache[key][c.key]
