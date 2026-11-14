@@ -38,12 +38,7 @@ class BleachHTMLParser(HTMLParser):
         self.consume_entities = consume_entities
         super(BleachHTMLParser, self).__init__(**kwargs)
 
-    def _parse(self, stream, innerHTML=False, container='div', scripting=True, **kwargs):
-        # set scripting=True to parse <noscript> as though JS is enabled to
-        # match the expected context in browsers
-        #
-        # https://html.spec.whatwg.org/multipage/scripting.html#the-noscript-element
-        #
+    def _parse(self, stream, innerHTML=False, container='div', scripting=False, **kwargs):
         # Override HTMLParser so we can swap out the tokenizer for our own.
         self.innerHTMLMode = innerHTML
         self.container = container
